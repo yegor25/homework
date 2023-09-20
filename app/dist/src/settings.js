@@ -134,11 +134,11 @@ exports.app.put("/videos/:id", (req, res) => {
         if (canBeDownloaded && typeof (canBeDownloaded) !== "boolean") {
             errors.errorsMessages.push({
                 message: "bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean",
-                field: "canBeDownLoaded"
+                field: "canBeDownloaded"
             });
         }
         else {
-            canBeDownloaded = true;
+            canBeDownloaded = false;
         }
         if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 18 || typeof (minAgeRestriction) !== "number") {
             errors.errorsMessages.push({
