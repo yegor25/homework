@@ -134,7 +134,7 @@ exports.app.put("/videos/:id", (req, res) => {
         if (canBeDownloaded && typeof (canBeDownloaded) !== "boolean") {
             errors.errorsMessages.push({
                 message: "bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean",
-                field: "canBeDownloaded"
+                field: "canBeDownLoaded"
             });
         }
         else {
@@ -145,9 +145,6 @@ exports.app.put("/videos/:id", (req, res) => {
                 message: "invalid number of min Age restriction",
                 field: "minAgeRestriction"
             });
-        }
-        else {
-            minAgeRestriction = 16;
         }
         if (!publicationDate || isNaN(+new Date(publicationDate))) {
             errors.errorsMessages.push({

@@ -162,7 +162,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
     if (canBeDownloaded && typeof (canBeDownloaded) !== "boolean") {
       errors.errorsMessages.push({
         message: "bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean",
-        field: "canBeDownloaded"
+        field: "canBeDownLoaded"
       })
     } else {
       canBeDownloaded = true
@@ -172,9 +172,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
         message: "invalid number of min Age restriction",
         field: "minAgeRestriction"
       })
-    } else {
-      minAgeRestriction = 16
-    }
+    } 
     if(!publicationDate || isNaN(+new Date(publicationDate)) ){
         errors.errorsMessages.push({
           message: "Invalid date",
