@@ -142,7 +142,8 @@ exports.app.put("/videos/:id", (req, res) => {
             });
         }
         else {
-            canBeDownloaded = false;
+            if (!canBeDownloaded)
+                canBeDownloaded = false;
         }
         if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 18 || typeof (minAgeRestriction) !== "number") {
             errors.errorsMessages.push({
@@ -166,7 +167,7 @@ exports.app.put("/videos/:id", (req, res) => {
             canBeDownloaded,
             minAgeRestriction,
             publicationDate });
-        res.sendStatus(204);
+        res.status(201).send(videoDb);
     }
 });
 //2879031

@@ -54,9 +54,9 @@ const isISOString = (val: string) => {
   const d = new Date(val);
   return !Number.isNaN(d.valueOf()) && d.toISOString() === val;
 };
-app.delete("/testing/all-data", (req:Request, res:Response) => {
-    videoDb.length = 0
-    res.sendStatus(204)
+app.delete("/testing/all-data", (req: Request, res: Response) => {
+  videoDb.length = 0
+  res.sendStatus(204)
 })
 app.get("/videos", (req: Request, res: Response) => {
   res.send(videoDb)
@@ -169,22 +169,22 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
         field: "canBeDownloaded"
       })
     } else {
-      canBeDownloaded = false
+      if (!canBeDownloaded) canBeDownloaded = false
     }
     if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 18 || typeof (minAgeRestriction) !== "number") {
       errors.errorsMessages.push({
         message: "invalid number of min Age restriction",
         field: "minAgeRestriction"
       })
-    } 
-    if(!publicationDate || !isISOString(publicationDate) ){
-        errors.errorsMessages.push({
-          message: "Invalid date",
-          field: "publicationDate"
-        })
-    } 
-    
-    if(errors.errorsMessages.length){
+    }
+    if (!publicationDate || !isISOString(publicationDate)) {
+      errors.errorsMessages.push({
+        message: "Invalid date",
+        field: "publicationDate"
+      })
+    }
+
+    if (errors.errorsMessages.length) {
       res.status(400).send(errors)
       return
     }
@@ -198,7 +198,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
       publicationDate,
 
     }
-    res.sendStatus(204)
+    res.status(201).send(videoDb)
   }
 })
 
