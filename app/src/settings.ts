@@ -84,7 +84,7 @@ app.post("/videos", (req: requestWithBody<{ title: string, author: string, avail
     availableResolutions.map(el =>
       !AvailableResolutions[el] && errors.errorsMessages.push({
         message: "invalid availbale resolutions",
-        field: "available resolutions"
+        field: "availableResolutions"
       })
     )
   } else {
@@ -162,7 +162,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
     if (canBeDownloaded && typeof (canBeDownloaded) !== "boolean") {
       errors.errorsMessages.push({
         message: "bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean",
-        field: "canBeDownLoaded"
+        field: "canBeDownloaded"
       })
     } else {
       canBeDownloaded = true

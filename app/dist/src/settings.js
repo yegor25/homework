@@ -64,7 +64,7 @@ exports.app.post("/videos", (req, res) => {
     if (Array.isArray(availableResolutions) && availableResolutions.length) {
         availableResolutions.map(el => !AvailableResolutions[el] && errors.errorsMessages.push({
             message: "invalid availbale resolutions",
-            field: "available resolutions"
+            field: "availableResolutions"
         }));
     }
     else {
@@ -134,7 +134,7 @@ exports.app.put("/videos/:id", (req, res) => {
         if (canBeDownloaded && typeof (canBeDownloaded) !== "boolean") {
             errors.errorsMessages.push({
                 message: "bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean",
-                field: "canBeDownLoaded"
+                field: "canBeDownloaded"
             });
         }
         else {
