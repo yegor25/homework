@@ -2,12 +2,12 @@
     "version": 2,
     "name": "hw1",
     "builds": [
-       { "src": "dist/src/index.js",
+       { "src": "src/index.ts",
         "use": "@vercel/node"
 
     }
     ],
     "routes": [
-       { "src": "/(.*)", "dest": "dist/src/index.js" }
+       { "src": "/(.*)", "dest": "src/index.ts" }
     ]
  }
