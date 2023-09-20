@@ -32,6 +32,10 @@ const videoDb = [
         ]
     }
 ];
+exports.app.delete("/testing/all-data", (req, res) => {
+    videoDb.length = 0;
+    res.sendStatus(204);
+});
 exports.app.get("/videos", (req, res) => {
     res.send(videoDb);
 });
@@ -150,6 +154,9 @@ exports.app.put("/videos/:id", (req, res) => {
                 title: "Invalid date",
                 field: "publication date"
             });
+        }
+        else {
+            publicationDate = new Date().toISOString();
         }
         if (errors.errorMessages.length) {
             res.status(400).send(errors);

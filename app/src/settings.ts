@@ -50,7 +50,10 @@ const videoDb: videoType[] = [
     ]
   }
 ]
-
+app.delete("/testing/all-data", (req:Request, res:Response) => {
+    videoDb.length = 0
+    res.sendStatus(204)
+})
 app.get("/videos", (req: Request, res: Response) => {
   res.send(videoDb)
 })
@@ -177,7 +180,9 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
           title: "Invalid date",
           field: "publication date"
         })
-    } 
+    } else {
+      publicationDate = new Date().toISOString()
+    }
     
     if(errors.errorMessages.length){
       res.status(400).send(errors)
