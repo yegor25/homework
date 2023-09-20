@@ -146,7 +146,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
     if (!title || title.trim().length > 40 || !title.length) {
       errors.errorsMessages.push({ message: "invalid title", field: "title" })
     }
-    if (!author || author.trim().length > 40 || !author.length) {
+    if (!author || author.trim().length > 20 || !author.length) {
       errors.errorsMessages.push({ message: "invalid author", field: "author" })
     }
     if (Array.isArray(availableResolutions) && availableResolutions.length) {
