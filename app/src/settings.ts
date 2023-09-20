@@ -153,7 +153,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
       availableResolutions.map(el =>
         !AvailableResolutions[el] && errors.errorsMessages.push({
           message: "invalid availbale resolutions",
-          field: "available resolutions"
+          field: "availableResolutions"
         })
       )
     } else {
@@ -178,7 +178,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
     if(!publicationDate || isNaN(+new Date(publicationDate)) ){
         errors.errorsMessages.push({
           message: "Invalid date",
-          field: "publication date"
+          field: "publicationDate"
         })
     } else {
       publicationDate = new Date().toISOString()

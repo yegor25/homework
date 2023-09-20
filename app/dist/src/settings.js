@@ -125,7 +125,7 @@ exports.app.put("/videos/:id", (req, res) => {
         if (Array.isArray(availableResolutions) && availableResolutions.length) {
             availableResolutions.map(el => !AvailableResolutions[el] && errors.errorsMessages.push({
                 message: "invalid availbale resolutions",
-                field: "available resolutions"
+                field: "availableResolutions"
             }));
         }
         else {
@@ -152,7 +152,7 @@ exports.app.put("/videos/:id", (req, res) => {
         if (!publicationDate || isNaN(+new Date(publicationDate))) {
             errors.errorsMessages.push({
                 message: "Invalid date",
-                field: "publication date"
+                field: "publicationDate"
             });
         }
         else {
