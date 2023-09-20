@@ -117,7 +117,7 @@ app.post("/videos", (req: requestWithBody<{ title: string, author: string, avail
 app.delete("/videos/:id", (req: requestWithParams<{ id: number }>, res: Response) => {
   const id = +req.params.id
   const videoIndex = videoDb.findIndex(el => el.id === id)
-  if (!videoIndex) {
+  if (videoIndex < 0) {
     res.sendStatus(404)
     return
   } else {
