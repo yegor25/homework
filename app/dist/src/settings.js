@@ -56,14 +56,14 @@ exports.app.post("/videos", (req, res) => {
     };
     let { title, author, availableResolutions } = req.body;
     if (!title || !title.length || title.trim().length > 40) {
-        errors.errorMessages.push({ title: ["invalid title"], field: "title" });
+        errors.errorMessages.push({ message: "invalid title", field: "title" });
     }
     if (!author || !author.length || author.trim().length > 20) {
-        errors.errorMessages.push({ title: ["invalid author"], field: "author" });
+        errors.errorMessages.push({ message: "invalid author", field: "author" });
     }
     if (Array.isArray(availableResolutions) && availableResolutions.length) {
         availableResolutions.map(el => !AvailableResolutions[el] && errors.errorMessages.push({
-            title: ["invalid availbale resolutions"],
+            message: "invalid availbale resolutions",
             field: "available resolutions"
         }));
     }
@@ -117,14 +117,14 @@ exports.app.put("/videos/:id", (req, res) => {
     }
     else {
         if (!title || title.trim().length > 40 || !title.length) {
-            errors.errorMessages.push({ title: ["invalid title"], field: "title" });
+            errors.errorMessages.push({ message: "invalid title", field: "title" });
         }
         if (!author || author.trim().length > 40 || !author.length) {
-            errors.errorMessages.push({ title: ["invalid author"], field: "author" });
+            errors.errorMessages.push({ message: "invalid author", field: "author" });
         }
         if (Array.isArray(availableResolutions) && availableResolutions.length) {
             availableResolutions.map(el => !AvailableResolutions[el] && errors.errorMessages.push({
-                title: ["invalid availbale resolutions"],
+                message: "invalid availbale resolutions",
                 field: "available resolutions"
             }));
         }
@@ -133,7 +133,7 @@ exports.app.put("/videos/:id", (req, res) => {
         }
         if (canBeDownloaded && typeof (canBeDownloaded) !== "boolean") {
             errors.errorMessages.push({
-                title: ["bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean"],
+                message: "bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean",
                 field: "canBeDownLoaded"
             });
         }
@@ -142,7 +142,7 @@ exports.app.put("/videos/:id", (req, res) => {
         }
         if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 100 || typeof (minAgeRestriction) !== "number") {
             errors.errorMessages.push({
-                title: ["invalid number of min Age restriction"],
+                message: "invalid number of min Age restriction",
                 field: "min age restriction"
             });
         }
@@ -151,7 +151,7 @@ exports.app.put("/videos/:id", (req, res) => {
         }
         if (!publicationDate || isNaN(+new Date(publicationDate))) {
             errors.errorMessages.push({
-                title: ["Invalid date"],
+                message: "Invalid date",
                 field: "publication date"
             });
         }
