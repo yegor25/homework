@@ -52,17 +52,17 @@ exports.app.get("/videos/:id", (req, res) => {
 });
 exports.app.post("/videos", (req, res) => {
     let errors = {
-        errorMessages: []
+        errorsMessages: []
     };
     let { title, author, availableResolutions } = req.body;
     if (!title || !title.length || title.trim().length > 40) {
-        errors.errorMessages.push({ message: "invalid title", field: "title" });
+        errors.errorsMessages.push({ message: "invalid title", field: "title" });
     }
     if (!author || !author.length || author.trim().length > 20) {
-        errors.errorMessages.push({ message: "invalid author", field: "author" });
+        errors.errorsMessages.push({ message: "invalid author", field: "author" });
     }
     if (Array.isArray(availableResolutions) && availableResolutions.length) {
-        availableResolutions.map(el => !AvailableResolutions[el] && errors.errorMessages.push({
+        availableResolutions.map(el => !AvailableResolutions[el] && errors.errorsMessages.push({
             message: "invalid availbale resolutions",
             field: "available resolutions"
         }));
@@ -70,7 +70,7 @@ exports.app.post("/videos", (req, res) => {
     else {
         availableResolutions = [];
     }
-    if (errors.errorMessages.length) {
+    if (errors.errorsMessages.length) {
         res.status(400).send(errors);
         return;
     }
@@ -107,7 +107,7 @@ exports.app.delete("/videos/:id", (req, res) => {
 exports.app.put("/videos/:id", (req, res) => {
     const id = +req.params.id;
     const errors = {
-        errorMessages: []
+        errorsMessages: []
     };
     let { title, author, availableResolutions, canBeDownloaded, minAgeRestriction, publicationDate } = req.body;
     const modifyVideoIndex = videoDb.findIndex(el => el.id === id);
@@ -117,13 +117,13 @@ exports.app.put("/videos/:id", (req, res) => {
     }
     else {
         if (!title || title.trim().length > 40 || !title.length) {
-            errors.errorMessages.push({ message: "invalid title", field: "title" });
+            errors.errorsMessages.push({ message: "invalid title", field: "title" });
         }
         if (!author || author.trim().length > 40 || !author.length) {
-            errors.errorMessages.push({ message: "invalid author", field: "author" });
+            errors.errorsMessages.push({ message: "invalid author", field: "author" });
         }
         if (Array.isArray(availableResolutions) && availableResolutions.length) {
-            availableResolutions.map(el => !AvailableResolutions[el] && errors.errorMessages.push({
+            availableResolutions.map(el => !AvailableResolutions[el] && errors.errorsMessages.push({
                 message: "invalid availbale resolutions",
                 field: "available resolutions"
             }));
@@ -132,7 +132,7 @@ exports.app.put("/videos/:id", (req, res) => {
             availableResolutions = [];
         }
         if (canBeDownloaded && typeof (canBeDownloaded) !== "boolean") {
-            errors.errorMessages.push({
+            errors.errorsMessages.push({
                 message: "bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean",
                 field: "canBeDownLoaded"
             });
@@ -141,7 +141,7 @@ exports.app.put("/videos/:id", (req, res) => {
             canBeDownloaded = true;
         }
         if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 100 || typeof (minAgeRestriction) !== "number") {
-            errors.errorMessages.push({
+            errors.errorsMessages.push({
                 message: "invalid number of min Age restriction",
                 field: "min age restriction"
             });
@@ -150,7 +150,7 @@ exports.app.put("/videos/:id", (req, res) => {
             minAgeRestriction = 16;
         }
         if (!publicationDate || isNaN(+new Date(publicationDate))) {
-            errors.errorMessages.push({
+            errors.errorsMessages.push({
                 message: "Invalid date",
                 field: "publication date"
             });
@@ -158,7 +158,7 @@ exports.app.put("/videos/:id", (req, res) => {
         else {
             publicationDate = new Date().toISOString();
         }
-        if (errors.errorMessages.length) {
+        if (errors.errorsMessages.length) {
             res.status(400).send(errors);
             return;
         }
@@ -171,3 +171,4 @@ exports.app.put("/videos/:id", (req, res) => {
         res.sendStatus(204);
     }
 });
+//2879031

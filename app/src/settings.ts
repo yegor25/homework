@@ -9,7 +9,7 @@ type requestWithBody<B> = Request<{}, {}, B, {}>
 type requestWithParamsAndBody<P, B> = Request<P, {}, B, {}>
 
 type ErrorsType = {
-  errorMessages: errorMessagesType[]
+  errorsMessages: errorMessagesType[]
 }
 type errorMessagesType = {
   field: string,
@@ -71,18 +71,18 @@ app.get("/videos/:id", (req: requestWithParams<{ id: number }>, res: Response) =
 })
 app.post("/videos", (req: requestWithBody<{ title: string, author: string, availableResolutions: AvailableResolutions[] }>, res: Response) => {
   let errors: ErrorsType = {
-    errorMessages: []
+    errorsMessages: []
   }
   let { title, author, availableResolutions } = req.body
   if (!title || !title.length || title.trim().length > 40) {
-    errors.errorMessages.push({ message: "invalid title", field: "title" })
+    errors.errorsMessages.push({ message: "invalid title", field: "title" })
   }
   if (!author || !author.length || author.trim().length > 20) {
-    errors.errorMessages.push({ message: "invalid author", field: "author" })
+    errors.errorsMessages.push({ message: "invalid author", field: "author" })
   }
   if (Array.isArray(availableResolutions) && availableResolutions.length) {
     availableResolutions.map(el =>
-      !AvailableResolutions[el] && errors.errorMessages.push({
+      !AvailableResolutions[el] && errors.errorsMessages.push({
         message: "invalid availbale resolutions",
         field: "available resolutions"
       })
@@ -91,7 +91,7 @@ app.post("/videos", (req: requestWithBody<{ title: string, author: string, avail
     availableResolutions = []
   }
 
-  if (errors.errorMessages.length) {
+  if (errors.errorsMessages.length) {
     res.status(400).send(errors)
     return
   } else {
@@ -135,7 +135,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
 }>, res: Response) => {
   const id = +req.params.id
   const errors: ErrorsType = {
-    errorMessages: []
+    errorsMessages: []
   }
   let { title, author, availableResolutions, canBeDownloaded, minAgeRestriction, publicationDate } = req.body
   const modifyVideoIndex = videoDb.findIndex(el => el.id === id)
@@ -144,14 +144,14 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
     return
   } else {
     if (!title || title.trim().length > 40 || !title.length) {
-      errors.errorMessages.push({ message: "invalid title", field: "title" })
+      errors.errorsMessages.push({ message: "invalid title", field: "title" })
     }
     if (!author || author.trim().length > 40 || !author.length) {
-      errors.errorMessages.push({ message: "invalid author", field: "author" })
+      errors.errorsMessages.push({ message: "invalid author", field: "author" })
     }
     if (Array.isArray(availableResolutions) && availableResolutions.length) {
       availableResolutions.map(el =>
-        !AvailableResolutions[el] && errors.errorMessages.push({
+        !AvailableResolutions[el] && errors.errorsMessages.push({
           message: "invalid availbale resolutions",
           field: "available resolutions"
         })
@@ -160,7 +160,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
       availableResolutions = []
     }
     if (canBeDownloaded && typeof (canBeDownloaded) !== "boolean") {
-      errors.errorMessages.push({
+      errors.errorsMessages.push({
         message: "bad type of canBeDownLoaded, type of canBeDownLoaded must be boolean",
         field: "canBeDownLoaded"
       })
@@ -168,7 +168,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
       canBeDownloaded = true
     }
     if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 100 || typeof (minAgeRestriction) !== "number") {
-      errors.errorMessages.push({
+      errors.errorsMessages.push({
         message: "invalid number of min Age restriction",
         field: "min age restriction"
       })
@@ -176,7 +176,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
       minAgeRestriction = 16
     }
     if(!publicationDate || isNaN(+new Date(publicationDate)) ){
-        errors.errorMessages.push({
+        errors.errorsMessages.push({
           message: "Invalid date",
           field: "publication date"
         })
@@ -184,7 +184,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
       publicationDate = new Date().toISOString()
     }
     
-    if(errors.errorMessages.length){
+    if(errors.errorsMessages.length){
       res.status(400).send(errors)
       return
     }
@@ -202,3 +202,4 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
   }
 })
 
+//2879031
