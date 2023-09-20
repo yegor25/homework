@@ -140,10 +140,10 @@ exports.app.put("/videos/:id", (req, res) => {
         else {
             canBeDownloaded = true;
         }
-        if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 100 || typeof (minAgeRestriction) !== "number") {
+        if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 18 || typeof (minAgeRestriction) !== "number") {
             errors.errorsMessages.push({
                 message: "invalid number of min Age restriction",
-                field: "min age restriction"
+                field: "minAgeRestriction"
             });
         }
         else {
