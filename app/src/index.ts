@@ -11,6 +11,9 @@ import { Request,Response } from "express"
    res.sendStatus(204)
  })
 
+ app.get("/", (req:Request, res:Response) => {
+    res.send("hello samurai")
+ })
  app.listen(port, () => {
     console.log(`server runnung... on ${port} port`)
  })
