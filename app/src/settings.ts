@@ -112,7 +112,7 @@ app.post("/videos", (req: requestWithBody<{ title: string, author: string, avail
 })
 
 app.delete("/videos/:id", (req: requestWithParams<{ id: number }>, res: Response) => {
-  const id = req.params.id
+  const id = +req.params.id
   const videoIndex = videoDb.findIndex(el => el.id === id)
   if (!videoIndex) {
     res.sendStatus(404)
@@ -193,7 +193,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
       publicationDate,
 
     }
-    res.send(videoDb[modifyVideoIndex])
+    res.sendStatus(204)
   }
 })
 

@@ -89,7 +89,7 @@ exports.app.post("/videos", (req, res) => {
     }
 });
 exports.app.delete("/videos/:id", (req, res) => {
-    const id = req.params.id;
+    const id = +req.params.id;
     const videoIndex = videoDb.findIndex(el => el.id === id);
     if (!videoIndex) {
         res.sendStatus(404);
@@ -161,6 +161,6 @@ exports.app.put("/videos/:id", (req, res) => {
             canBeDownloaded,
             minAgeRestriction,
             publicationDate });
-        res.send(videoDb[modifyVideoIndex]);
+        res.sendStatus(204);
     }
 });
