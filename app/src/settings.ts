@@ -198,7 +198,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
       publicationDate,
 
     }
-    res.status(201).send(videoDb)
+    res.sendStatus(204)
   }
 })
 

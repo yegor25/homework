@@ -167,7 +167,7 @@ exports.app.put("/videos/:id", (req, res) => {
             canBeDownloaded,
             minAgeRestriction,
             publicationDate });
-        res.status(201).send(videoDb);
+        res.sendStatus(204);
     }
 });
 //2879031
