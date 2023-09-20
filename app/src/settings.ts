@@ -50,6 +50,10 @@ const videoDb: videoType[] = [
     ]
   }
 ]
+const isISOString = (val: string) => {
+  const d = new Date(val);
+  return !Number.isNaN(d.valueOf()) && d.toISOString() === val;
+};
 app.delete("/testing/all-data", (req:Request, res:Response) => {
     videoDb.length = 0
     res.sendStatus(204)
@@ -173,7 +177,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
         field: "minAgeRestriction"
       })
     } 
-    if(!publicationDate || isNaN(+new Date(publicationDate)) ){
+    if(!publicationDate || !isISOString(publicationDate) ){
         errors.errorsMessages.push({
           message: "Invalid date",
           field: "publicationDate"
