@@ -178,9 +178,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
           message: "Invalid date",
           field: "publicationDate"
         })
-    } else {
-      publicationDate = new Date().toISOString()
-    }
+    } 
     
     if(errors.errorsMessages.length){
       res.status(400).send(errors)

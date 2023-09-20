@@ -152,9 +152,6 @@ exports.app.put("/videos/:id", (req, res) => {
                 field: "publicationDate"
             });
         }
-        else {
-            publicationDate = new Date().toISOString();
-        }
         if (errors.errorsMessages.length) {
             res.status(400).send(errors);
             return;
