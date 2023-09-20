@@ -43,7 +43,7 @@ exports.app.get("/videos/:id", (req, res) => {
         return;
     }
     else {
-        res.send(video);
+        res.status(200).send(video);
     }
 });
 exports.app.post("/videos", (req, res) => {
@@ -134,7 +134,7 @@ exports.app.put("/videos/:id", (req, res) => {
             });
         }
         else {
-            canBeDownloaded = false;
+            canBeDownloaded = true;
         }
         if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 100 || typeof (minAgeRestriction) !== "number") {
             errors.errorMessages.push({
@@ -143,7 +143,7 @@ exports.app.put("/videos/:id", (req, res) => {
             });
         }
         else {
-            minAgeRestriction = null;
+            minAgeRestriction = 16;
         }
         if (!publicationDate || isNaN(+new Date(publicationDate))) {
             errors.errorMessages.push({

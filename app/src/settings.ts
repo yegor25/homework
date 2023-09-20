@@ -63,7 +63,7 @@ app.get("/videos/:id", (req: requestWithParams<{ id: number }>, res: Response) =
     res.sendStatus(404)
     return
   } else {
-    res.send(video)
+    res.status(200).send(video)
   }
 })
 app.post("/videos", (req: requestWithBody<{ title: string, author: string, availableResolutions: AvailableResolutions[] }>, res: Response) => {
@@ -162,7 +162,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
         field: "canBeDownLoaded"
       })
     } else {
-      canBeDownloaded = false
+      canBeDownloaded = true
     }
     if (!minAgeRestriction || minAgeRestriction < 0 || minAgeRestriction > 100 || typeof (minAgeRestriction) !== "number") {
       errors.errorMessages.push({
@@ -170,7 +170,7 @@ app.put("/videos/:id", (req: requestWithParamsAndBody<{ id: number }, {
         field: "min age restriction"
       })
     } else {
-      minAgeRestriction = null
+      minAgeRestriction = 16
     }
     if(!publicationDate || isNaN(+new Date(publicationDate)) ){
         errors.errorMessages.push({
